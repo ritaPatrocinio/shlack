@@ -1,16 +1,22 @@
 import { module, test } from 'qunit';
 import { visit, currentURL, click } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
+import MockAuthService from 'shlack/tests/stubs/auth-service';
 
-module('Acceptance | logout', function(hooks) {
+module('Acceptance | logout', function (hooks) {
   setupApplicationTest(hooks);
 
-  test('visiting /teams and clicking "Logout"', async function(assert) {
-    await visit('/teams');
+  hooks.beforeEach(function () {
+    this.owner.register('service:auth', MockAuthService);
+  });
 
-    assert.equal(currentURL(), '/teams');
+  test('visiting /teams and clicking "Logout"', async function (assert) {
+    this.owner.lookup('service:auth').currentUserId = '1';
+    await visit('/teams/linkedin');
 
-    await click('.team-sidebar__logout-button')
+    assert.ok(currentURL().startsWith('/teams'));
+
+    await click('.team-sidebar__logout-button');
 
     assert.equal(currentURL(), '/login');
   });
