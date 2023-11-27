@@ -472,6 +472,14 @@
       "userId": "1",
       "createdAt": 1556683077121,
       "id": 57
+    },
+    {
+      "teamId": "linkedin",
+      "channelId": "recruiting",
+      "userId": "2",
+      "body": "a",
+      "createdAt": 1700851555384,
+      "id": 59
     }
   ]
 }
